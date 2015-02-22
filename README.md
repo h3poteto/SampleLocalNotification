@@ -1,0 +1,8 @@
+# SampleLocalNotification
+
+iOS8に対応するLocalNotificationのサンプルです．
+
+ViewController内のボタンをタップすると1分後にLocalNotificationが発動するので，その間にアプリをバックグランドにしするなり，終了するなり，起動したままにしておくことで，それぞれの挙動が観察できます．
+
+- TimeZoneの指定をGMT+9に合わせているため，GMT+9のタイムゾーン設定内で実行してください．
+- 簡易化するためにStoryboardの画面サイズは4inch固定にしてあります．
