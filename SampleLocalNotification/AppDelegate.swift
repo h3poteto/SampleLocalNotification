@@ -15,7 +15,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Sound | UIUserNotificationType.Alert | UIUserNotificationType.Badge, categories: nil))
+        
+        if (launchOptions != nil) {
+            var notification: UILocalNotification? = launchOptions![UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification
+            if (notification != nil) {
+                var alert = UIAlertView()
+                alert.title = "ApplicationLaunch"
+                alert.message = notification!.alertBody
+                alert.addButtonWithTitle(notification!.alertAction!)
+                alert.show()
+            }
+        }
         return true
     }
 
@@ -35,6 +46,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    }
+    
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        if (application.applicationState == UIApplicationState.Active) {
+            // foreground時のlocal notification
+            var alert = UIAlertView()
+            alert.title = "Foreground"
+            alert.message = notification.alertBody
+            alert.addButtonWithTitle(notification.alertAction!)
+            alert.show()
+        } else {
+            // background時のlocal notification
+            var alert = UIAlertView()
+            alert.title = "Background"
+            alert.message = notification.alertBody
+            alert.addButtonWithTitle(notification.alertAction!)
+            alert.show()
+        }
     }
 
     func applicationWillTerminate(application: UIApplication) {
